@@ -1,0 +1,42 @@
+@Slf4j
+public class AdminInterceptor implements HandlerInterceptor {
+
+    /**
+     * Description 在请求处理之前进行调用
+     * @author zck
+     * @date 2021/9/27
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+//        log.info("请求了preHandle方法");
+        /**判断session是否过期****/
+        EquTerminal equTerminal = (EquTerminal) request.getSession().getAttribute("equTerminal");
+        if (equTerminal!=null){
+            return true;
+        }
+        log.info("session过期,跳转首页!");
+        response.sendRedirect(request.getContextPath()+"/login");
+        return false;
+    }
+
+
+    /**
+     * Description 请求处理之后进行调用，但是在视图被渲染之前
+     * @author zck
+     * @date 2021/9/27
+     */
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
+//            log.info("执行了postHandle方法");
+    }
+
+    /**
+     * Description 在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）
+     * @author zck
+     * @date 2021/9/27
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
+//        log.info("afterCompletion");
+    }
+}
