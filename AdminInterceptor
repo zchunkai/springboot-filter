@@ -1,3 +1,4 @@
+实现HandlerInterceptor,装载拦截器
 @Slf4j
 public class AdminInterceptor implements HandlerInterceptor {
 
