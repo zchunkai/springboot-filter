@@ -1,0 +1,23 @@
+Filter配置
+
+@Configuration
+public class FilterConfig implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        InterceptorRegistration interceptor = registry.addInterceptor(new AdminInterceptor());
+        interceptor.addPathPatterns("/**");/***所有路径都被拦截*/
+        interceptor.excludePathPatterns(
+                "/login",      /***登录路径*/
+                "/login/*",
+                "/login/*/*",
+                /***静态资源**/
+                "/**/*.html",
+                "/**/*.js",
+                "/**/*.css",
+                "/**/*.svg",
+                "/**/*.png",
+                "/**/*.jpg",
+                "/app/*"
+        );
+    }
+}
